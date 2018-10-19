@@ -4,7 +4,7 @@
 
     <groupId>de.olexiy.spring</groupId>
     <artifactId>my-pet-clinic</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <modules>
         <module>pet-clinic-data</module>
         <module>pet-clinic-web</module>
@@ -53,6 +53,6 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/olexiy/my-pet-clinic.git</developerConnection>
-      <tag>my-pet-clinic-0.0.2</tag>
+      <tag>my-pet-clinic-0.0.1</tag>
   </scm>
 </project>
