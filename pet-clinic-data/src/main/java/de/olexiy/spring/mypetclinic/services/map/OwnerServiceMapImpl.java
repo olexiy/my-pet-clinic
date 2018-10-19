@@ -1,14 +1,14 @@
 package de.olexiy.spring.mypetclinic.services.map;
 
 import de.olexiy.spring.mypetclinic.model.Owner;
-import de.olexiy.spring.mypetclinic.services.CrudService;
+import de.olexiy.spring.mypetclinic.services.OwnerService;
 
 import java.util.Set;
 
 /**
  * Created by Olexiy Sokurenko on Okt, 2018
  **/
-public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
@@ -32,5 +32,10 @@ public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> impleme
     @Override
     public Owner save(Owner owner) {
         return super.save(owner.getId(), owner);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
     }
 }
