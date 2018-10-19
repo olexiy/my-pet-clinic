@@ -4,7 +4,7 @@
 
     <groupId>de.olexiy.spring</groupId>
     <artifactId>my-pet-clinic</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <modules>
         <module>pet-clinic-data</module>
         <module>pet-clinic-web</module>
@@ -42,6 +42,10 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <goals>install</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <checkModificationExcludes>
+                        <checkModificationExclude>pom.xml</checkModificationExclude>
+                    </checkModificationExcludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -49,6 +53,6 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/olexiy/my-pet-clinic.git</developerConnection>
-      <tag>my-pet-clinic-0.0.1</tag>
+      <tag>my-pet-clinic-0.0.2</tag>
   </scm>
 </project>
