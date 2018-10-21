@@ -2,6 +2,8 @@ package de.olexiy.spring.mypetclinic.services.map;
 
 import de.olexiy.spring.mypetclinic.model.Owner;
 import de.olexiy.spring.mypetclinic.services.OwnerService;
+import de.olexiy.spring.mypetclinic.services.PetService;
+import de.olexiy.spring.mypetclinic.services.PetTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,6 +13,15 @@ import java.util.Set;
  **/
 @Service
 public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> implements OwnerService {
+
+    private PetService petService;
+    private PetTypeService petTypeService;
+
+    public OwnerServiceMapImpl(PetService petService, PetTypeService petTypeService) {
+        this.petService = petService;
+        this.petTypeService = petTypeService;
+    }
+
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
@@ -33,7 +44,25 @@ public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> impleme
 
     @Override
     public Owner save(Owner owner) {
-        return super.save(owner);
+        if (owner != null) {
+            if (owner.getPets() != null) {
+                owner.getPets().forEach(pet -> {
+                    if (pet.getPetType() != null) {
+                        if (pet.getPetType().getId() == null) {
+                            pet.setPetType(petTypeService.save(pet.getPetType()));
+                        }
+                    } else {
+                        throw new RuntimeException("Pet Type is required");
+                    }
+                    if (pet.getId() == null) {
+                        petService.save(pet);
+                    }
+                });
+            }
+            return super.save(owner);
+        } else {
+            return null;
+        }
     }
 
     @Override
