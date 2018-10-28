@@ -1,10 +1,7 @@
 package de.olexiy.spring.mypetclinic.bootstrap;
 
 import de.olexiy.spring.mypetclinic.model.*;
-import de.olexiy.spring.mypetclinic.services.OwnerService;
-import de.olexiy.spring.mypetclinic.services.PetTypeService;
-import de.olexiy.spring.mypetclinic.services.SpecialitiesService;
-import de.olexiy.spring.mypetclinic.services.VetService;
+import de.olexiy.spring.mypetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +17,16 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialitiesService specialitiesService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialitiesService specialitiesService) {
+    public DataLoader(OwnerService ownerService, VetService vetService,
+                      PetTypeService petTypeService, SpecialitiesService specialitiesService,
+                      VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialitiesService = specialitiesService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -110,6 +111,14 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet2);
 
         System.out.println("Loaded Vets....");
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(fionasCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy Kitty");
+        visitService.save(catVisit);
+
+        System.out.println("Loaded Visits....");
     }
 
 
