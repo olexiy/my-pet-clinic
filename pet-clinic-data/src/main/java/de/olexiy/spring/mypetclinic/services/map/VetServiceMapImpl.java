@@ -3,6 +3,7 @@ package de.olexiy.spring.mypetclinic.services.map;
 import de.olexiy.spring.mypetclinic.model.Vet;
 import de.olexiy.spring.mypetclinic.services.SpecialitiesService;
 import de.olexiy.spring.mypetclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
  * Created by Olexiy Sokurenko on Okt, 2018
  **/
 @Service
+@Profile({"default", "map"})
 public class VetServiceMapImpl extends AbstractMapService<Vet, Long> implements VetService {
     private final SpecialitiesService specialitiesService;
 
