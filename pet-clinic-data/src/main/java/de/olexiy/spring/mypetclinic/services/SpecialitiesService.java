@@ -5,5 +5,5 @@ import de.olexiy.spring.mypetclinic.model.Speciality;
 /**
  * Created by olsak on Okt, 2018
  **/
-public interface SpeciaalitiesService extends CrudService<Speciality, Long> {
+public interface SpecialitiesService extends CrudService<Speciality, Long> {
 }

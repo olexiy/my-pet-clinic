@@ -1,7 +1,7 @@
 package de.olexiy.spring.mypetclinic.services.map;
 
 import de.olexiy.spring.mypetclinic.model.Speciality;
-import de.olexiy.spring.mypetclinic.services.SpeciaalitiesService;
+import de.olexiy.spring.mypetclinic.services.SpecialitiesService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by olsak on Okt, 2018
  **/
 @Service
-public class SpecialitiesServiceMapImpl extends AbstractMapService<Speciality, Long> implements SpeciaalitiesService {
+public class SpecialitiesServiceMapImpl extends AbstractMapService<Speciality, Long> implements SpecialitiesService {
 
 
     @Override

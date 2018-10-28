@@ -2,7 +2,7 @@ package de.olexiy.spring.mypetclinic.services.springdatajpa;
 
 import de.olexiy.spring.mypetclinic.model.Speciality;
 import de.olexiy.spring.mypetclinic.repositories.SpecialityRepository;
-import de.olexiy.spring.mypetclinic.services.SpeciaalitiesService;
+import de.olexiy.spring.mypetclinic.services.SpecialitiesService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.Set;
  **/
 @Service
 @Profile("springdatajpa")
-public class SpecialityServiceSDJpaService implements SpeciaalitiesService {
+public class SpecialityServiceSDJpaService implements SpecialitiesService {
 
     private final SpecialityRepository specialityRepository;
 

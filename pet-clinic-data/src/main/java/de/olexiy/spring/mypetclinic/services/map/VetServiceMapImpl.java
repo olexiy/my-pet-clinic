@@ -1,7 +1,7 @@
 package de.olexiy.spring.mypetclinic.services.map;
 
 import de.olexiy.spring.mypetclinic.model.Vet;
-import de.olexiy.spring.mypetclinic.services.SpeciaalitiesService;
+import de.olexiy.spring.mypetclinic.services.SpecialitiesService;
 import de.olexiy.spring.mypetclinic.services.VetService;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.Set;
  **/
 @Service
 public class VetServiceMapImpl extends AbstractMapService<Vet, Long> implements VetService {
-    private final SpeciaalitiesService speciaalitiesService;
+    private final SpecialitiesService specialitiesService;
 
-    public VetServiceMapImpl(SpeciaalitiesService speciaalitiesService) {
-        this.speciaalitiesService = speciaalitiesService;
+    public VetServiceMapImpl(SpecialitiesService specialitiesService) {
+        this.specialitiesService = specialitiesService;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class VetServiceMapImpl extends AbstractMapService<Vet, Long> implements 
         if (vet.getSpecialities().size() > 0) {
             vet.getSpecialities().forEach(speciality -> {
                 if (speciality.getId() == null) {
-                    speciaalitiesService.save(speciality);
+                    specialitiesService.save(speciality);
                 }
             });
         }
