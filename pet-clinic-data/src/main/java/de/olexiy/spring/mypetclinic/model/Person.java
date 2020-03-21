@@ -12,6 +12,11 @@ import javax.persistence.MappedSuperclass;
 @NoArgsConstructor
 @MappedSuperclass
 public class Person extends BaseEntity {
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     public Person(Long id, String firstName, String lastName) {
         super(id);
@@ -19,10 +24,6 @@ public class Person extends BaseEntity {
         this.lastName = lastName;
     }
 
-    @Column(name = "first_name")
-    private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
 
 }

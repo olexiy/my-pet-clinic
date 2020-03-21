@@ -27,7 +27,7 @@ public class VisitServiceMapImpl extends AbstractMapService<Visit, Long> impleme
     public Visit save(Visit visit) {
         if (visit.getPet() == null || visit.getPet().getOwner() == null || visit.getPet().getId() == null
                 || visit.getPet().getOwner().getId() == null) {
-            throw new RuntimeException("Invalid Visit");
+            throw new IllegalStateException("Invalid Visit");
         }
         return super.save(visit);
     }

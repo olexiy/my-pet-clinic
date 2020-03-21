@@ -40,7 +40,7 @@ class OwnerServiceSDJpaImplTest {
     private Owner returnOwner;
 
     @BeforeEach
-    private void setup() {
+    private void setUp() {
         returnOwner = Owner.builder().id(id).lastName(lastName).build();
     }
 
