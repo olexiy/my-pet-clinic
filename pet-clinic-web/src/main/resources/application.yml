@@ -1,0 +1,11 @@
+#Internationalization
+spring:
+  messages:
+    basename: messages/messages
+  profiles:
+    active: springdatajpa
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

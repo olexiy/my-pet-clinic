@@ -34,7 +34,7 @@ class OwnerControllerTest {
     private OwnerServiceSDJpaImpl ownerService;
 
     @BeforeEach
-    private void setUp() {
+    void setUp() {
         owners = new HashSet<>();
         owners.add(Owner.builder().id(1L).build());
         owners.add(Owner.builder().id(2L).build());
@@ -67,6 +67,22 @@ class OwnerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/ownerDetails"))
                 .andExpect(model().attributeExists("owner"))
-                .andExpect(model().attribute("owner", hasProperty("id", is(1l))));
+                .andExpect(model().attribute("owner", hasProperty("id", is(1L))));
+    }
+
+    @Test
+    void showOwnerNotFound() throws Exception {
+        when(ownerService.findById(anyLong())).thenReturn(null);
+        mockMvc.perform(get("/owners/123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error"))
+                .andExpect(model().attributeExists("error"));
+    }
+
+    @Test
+    void showOwnerInvalidId() throws Exception {
+        mockMvc.perform(get("/owners/0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error"));
     }
 }

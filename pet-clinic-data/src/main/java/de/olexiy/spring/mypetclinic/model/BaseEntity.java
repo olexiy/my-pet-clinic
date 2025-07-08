@@ -1,28 +1,58 @@
 package de.olexiy.spring.mypetclinic.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
- * Created by Olexiy Sokurenko on Okt, 2018
- **/
-@Getter
-@Setter
+ * Base entity class for all domain objects.
+ * Provides common id field and equals/hashCode implementation.
+ * 
+ * @author Olexiy Sokurenko
+ * @since 2018
+ */
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        BaseEntity that = (BaseEntity) obj;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    /**
+     * Returns true if this entity has been persisted (has an ID).
+     */
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

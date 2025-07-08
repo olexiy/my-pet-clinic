@@ -12,12 +12,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,24 +42,26 @@ class OwnerServiceSDJpaImplTest {
     private Owner returnOwner;
 
     @BeforeEach
-    private void setUp() {
+    void setUp() {
         returnOwner = Owner.builder().id(id).lastName(lastName).build();
     }
 
     @Test
     void findByLastName() {
-        when(ownerRepository.findByLastName(any())).thenReturn(returnOwner);
+        when(ownerRepository.findByLastNameIgnoreCase(anyString())).thenReturn(Optional.of(returnOwner));
         Owner smith = ownerService.findByLastName(lastName);
         assertEquals(lastName, smith.getLastName());
+        verify(ownerRepository).findByLastNameIgnoreCase(lastName);
     }
 
     @Test
     void findAll() {
-        Set<Owner> returnOwnerSet = new HashSet<>();
-        returnOwnerSet.add(returnOwner);
-        returnOwnerSet.add(Owner.builder().id(2L).build());
+        List<Owner> returnOwnerList = List.of(
+            returnOwner,
+            Owner.builder().id(2L).firstName("Jane").lastName("Doe").build()
+        );
 
-        when(ownerRepository.findAll()).thenReturn(returnOwnerSet);
+        when(ownerRepository.findAll()).thenReturn(returnOwnerList);
         Set<Owner> owners = ownerService.findAll();
 
         assertNotNull(owners);
@@ -75,6 +79,25 @@ class OwnerServiceSDJpaImplTest {
     void findByIdNotFound() {
         when(ownerRepository.findById(anyLong())).thenReturn(Optional.empty());
         Owner owner = ownerService.findById(id);
+        assertNull(owner);
+    }
+
+    @Test
+    void findByLastNameNotFound() {
+        when(ownerRepository.findByLastNameIgnoreCase(anyString())).thenReturn(Optional.empty());
+        Owner owner = ownerService.findByLastName("NotFound");
+        assertNull(owner);
+    }
+
+    @Test
+    void findByLastNameWithEmptyString() {
+        Owner owner = ownerService.findByLastName("");
+        assertNull(owner);
+    }
+
+    @Test
+    void findByLastNameWithNull() {
+        Owner owner = ownerService.findByLastName(null);
         assertNull(owner);
     }
 
